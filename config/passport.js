@@ -14,8 +14,9 @@ const localOptions = {
 // Setting up local login strategy
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
   User.findOne({ email }, (err, user) => {
-    if (err) { return done(err); }
-    if (!user) { return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
+    console.log('inside local login ' + email + ' pass: ' + password);
+    if (err) {  return done(err);  }
+    if (!user) { console.log('inside local login user ' + user); return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
 
     user.comparePassword(password, (err, isMatch) => {
       if (err) { return done(err); }

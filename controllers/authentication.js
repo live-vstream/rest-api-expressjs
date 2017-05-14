@@ -21,6 +21,8 @@ function generateToken(user) {
 exports.login = function (req, res, next) {
   const userInfo = setUserInfo(req.user);
 
+  console.log('Inside login');
+
   res.status(200).json({
     token: `JWT ${generateToken(userInfo)}`,
     user: userInfo

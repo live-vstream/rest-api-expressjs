@@ -4,9 +4,8 @@ const UserController = require('./controllers/user');
 const StreamController = require('./controllers/stream');
 const express = require('express');
 const passport = require('passport');
-const ROLE_MEMBER = require('./constants').ROLE_MEMBER;
-const ROLE_CLIENT = require('./constants').ROLE_CLIENT;
-const ROLE_OWNER = require('./constants').ROLE_OWNER;
+const ROLE_SUBSCRIBER = require('./constants').ROLE_SUBSCRIBER;
+const ROLE_PUBLISHER = require('./constants').ROLE_PUBLISHER;
 const ROLE_ADMIN = require('./constants').ROLE_ADMIN;
 
 const passportService = require('./config/passport');
@@ -73,7 +72,9 @@ module.exports = function (app) {
 
   // Create a new stream
   // Only clients are allowed to create a stream
-  streamRoutes.post('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_CLIENT),  StreamController.newStream);
+  streamRoutes.post('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_PUBLISHER),  StreamController.newStream);
+
+  streamRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_PUBLISHER),  StreamController.getPublishedStreams);
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

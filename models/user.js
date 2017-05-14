@@ -1,9 +1,8 @@
 // Importing Node packages required for schema
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
-const ROLE_MEMBER = require('../constants').ROLE_MEMBER;
-const ROLE_CLIENT = require('../constants').ROLE_CLIENT;
-const ROLE_OWNER = require('../constants').ROLE_OWNER;
+const ROLE_SUBSCRIBER = require('../constants').ROLE_SUBSCRIBER;
+const ROLE_PUBLISHER = require('../constants').ROLE_PUBLISHER;
 const ROLE_ADMIN = require('../constants').ROLE_ADMIN;
 
 const Schema = mongoose.Schema;
@@ -28,9 +27,13 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: [ROLE_MEMBER, ROLE_CLIENT, ROLE_OWNER, ROLE_ADMIN],
-    default: ROLE_MEMBER
+    enum: [ROLE_SUBSCRIBER, ROLE_PUBLISHER, ROLE_ADMIN],
+    default: ROLE_PUBLISHER
   },
+  view_history: [{ /* Stream view/subscribe history, ONLY FOR SUBSCRIBER */
+  	type: Schema.Types.ObjectId,
+  	ref: 'Stream'
+  }],
   stripe: {
     customerId: { type: String },
     subscriptionId: { type: String },
