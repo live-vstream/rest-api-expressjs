@@ -18,9 +18,13 @@ exports.newStream = function (req, res, next) {
   var expiryDate = new Date();
   expiryDate.setDate(expiryDate.getDate()+1); /* expires in 24hrs */
 
+  /* Filename is of the form 'firstName_milliseconds' */
+  var fileName = req.user.firstName + '_' + (new Date()).getTime();
+
   const stream = new Stream({
     title: req.body.title,
     createdBy: req.user._id,
+    filename: fileName,
     tokens: [{value: newToken, expiresAt: expiryDate}] /* Create a new token  by default */
     });
 
