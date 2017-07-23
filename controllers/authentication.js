@@ -71,13 +71,15 @@ exports.register = function (req, res, next) {
 
       // If email is unique and password was provided, create account
     const user = new User({
-      email,
-      password,
-      profile: { firstName, lastName },
+      email: email,
+      password: password,
+      profile: { firstName: firstName, lastName: lastName },
       role: role
     });
 
     user.save((err, user) => {
+      console.log('inside save', JSON.stringify(err))
+
       if (err) { return next(err); }
 
         // Subscribe member to Mailchimp list

@@ -74,7 +74,7 @@ module.exports = function (app) {
   // Only clients are allowed to create a stream
   streamRoutes.post('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_PUBLISHER),  StreamController.newStream);
 
-  streamRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_PUBLISHER),  StreamController.getPublishedStreams);
+  streamRoutes.get('/', requireAuth, AuthenticationController.roleAuthorization(ROLE_SUBSCRIBER),  StreamController.getPublishedStreams);
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

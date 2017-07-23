@@ -42,7 +42,7 @@ exports.newStream = function (req, res, next) {
 
 /* Returns all of the streams created by currently authenticated Publisher */
 exports.getPublishedStreams = function (req, res, next) {
-
+  
   Stream.find({ createdBy: req.user._id }, (err, stream) => {
     if(err) {
       res.send({ error: err });

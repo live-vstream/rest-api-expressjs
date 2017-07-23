@@ -31,6 +31,7 @@ app.use(logger('dev')); // Log requests to API using morgan
 
 // Enable CORS from client-side
 app.use((req, res, next) => {
+  console.log('headers: ', req.headers);
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
