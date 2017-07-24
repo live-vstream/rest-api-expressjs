@@ -15,6 +15,11 @@ const StreamSchema = new Schema({
   filename: {
     type: String
   },
+  status: {
+    type: String,
+    enum: ['pending', 'live', 'completed'],
+    default: 'pending'
+  },
   tokens: [{
     value: {
       type: String
@@ -22,7 +27,11 @@ const StreamSchema = new Schema({
     expiresAt: {
       type: Date
     }
-  }]
+  }],
+  publisher: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 },
   {
     timestamps: true // Saves createdAt and updatedAt as dates. createdAt will be our timestamp.
